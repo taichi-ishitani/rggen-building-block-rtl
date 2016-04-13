@@ -1,4 +1,4 @@
-module rgen_host_if_apb #(
+module rggen_host_if_apb #(
   parameter DATA_WIDTH          = 32,
   parameter HOST_ADDRESS_WIDTH  = 16,
   parameter LOCAL_ADDRESS_WIDTH = 16

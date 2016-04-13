@@ -1,4 +1,4 @@
-module rgen_bit_field_rw #(
+module rggen_bit_field_rw #(
   parameter WIDTH         = 1,
   parameter INITIAL_VALUE = 0
 )(

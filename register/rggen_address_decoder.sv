@@ -1,4 +1,4 @@
-module rgen_address_decoder #(
+module rggen_address_decoder #(
   parameter READABLE            = 1,
   parameter WRITABLE            = 1,
   parameter ADDRESS_WIDTH       = 16,

@@ -1,4 +1,4 @@
-module rgen_response_mux #(
+module rggen_response_mux #(
   parameter DATA_WIDTH      = 32,
   parameter TOTAL_REGISTERS = 1
 )(
