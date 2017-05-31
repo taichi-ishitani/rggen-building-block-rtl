@@ -9,12 +9,7 @@ module rggen_bus_splitter #(
 );
   import  rggen_rtl_pkg::*;
 
-  typedef struct packed {
-    logic [DATA_WIDTH-1:0]  read_data;
-    rggen_status            status;
-  } s_response;
-
-  localparam  int STATUS_WIDTH  = $size(rggen_status);
+  localparam  int STATUS_WIDTH  = $bits(rggen_status);
 
   logic [TOTAL_REGISTERS-1:0] select;
   logic [TOTAL_REGISTERS-1:0] ready;
@@ -48,14 +43,14 @@ module rggen_bus_splitter #(
     end
     else if (bus_if.request && (response_ready || (!register_selected)) && (!done)) begin
       done              <= '1;
-      bus_if.read_done  <= (bus_if.direction == RGGEN_WRITE) ? '1 : '0;
-      bus_if.write_done <= (bus_if.direction == RGGEN_READ ) ? '1 : '0;
+      bus_if.read_done  <= (bus_if.direction == RGGEN_READ ) ? '1 : '0;
+      bus_if.write_done <= (bus_if.direction == RGGEN_WRITE) ? '1 : '0;
       if (register_selected) begin
-        bus_if.read_done  <= selected_read_data;
+        bus_if.read_data  <= selected_read_data;
         bus_if.status     <= selected_status;
       end
       else begin
-        bus_if.read_done  <= '0;
+        bus_if.read_data  <= '0;
         bus_if.status     <= RGGEN_SLAVE_ERROR;
       end
     end
@@ -80,7 +75,7 @@ module rggen_bus_splitter #(
   end endgenerate
 
   generate if (1) begin : status_selection
-    for (g_i = 0;g_i < $size(rggen_status);++g_i) begin : g
+    for (g_i = 0;g_i < STATUS_WIDTH;++g_i) begin : g
       logic [TOTAL_REGISTERS-1:0] temp;
       assign  selected_status[g_i]  = |temp;
       for (g_j = 0;g_j < TOTAL_REGISTERS;++g_j) begin : g
