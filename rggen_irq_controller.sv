@@ -1,11 +1,11 @@
 module rggen_irq_controller #(
   parameter TOTAL_INTERRUPTS  = 1
 )(
-  input                           clk,
-  input                           rst_n,
-  input   [TOTAL_INTERRUPTS-1:0]  i_ier,
-  input   [TOTAL_INTERRUPTS-1:0]  i_isr,
-  output                          o_irq
+  input   logic                         clk,
+  input   logic                         rst_n,
+  input   logic [TOTAL_INTERRUPTS-1:0]  i_ier,
+  input   logic [TOTAL_INTERRUPTS-1:0]  i_isr,
+  output  logic                         o_irq
 );
   logic irq;
 
